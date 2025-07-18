@@ -18,22 +18,27 @@ export interface Task {
 
 interface TaskStore {
   tasks: Task[];
+  query: string;
   setTasks: (t: Task[]) => void;
   updateTask: (id: string, updates: Partial<Task>) => void;
+  setQuery: (q: string) => void;
 }
 
 export const useTaskStore = create<TaskStore>()(
   persist(
     (set) => ({
       tasks: [],
+      query: "",
       setTasks: (tasks) => set({ tasks }),
       updateTask: (id, updates) =>
         set((s) => ({
           tasks: s.tasks.map((t) => (t.id === id ? { ...t, ...updates } : t)),
         })),
+      setQuery: (q) => set({ query: q }),
     }),
     {
       name: "task-storage",
+      partialize: (s) => ({ tasks: s.tasks }),
       storage:
         typeof window !== "undefined"
           ? createJSONStorage(() => localStorage)

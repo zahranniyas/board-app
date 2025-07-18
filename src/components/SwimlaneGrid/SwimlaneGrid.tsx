@@ -22,7 +22,7 @@ const lanes: { key: Status; title: string; color: string }[] = [
 ];
 
 const SwimlaneGrid = () => {
-  const { tasks, setTasks, updateTask } = useTaskStore();
+  const { tasks, setTasks, updateTask, query } = useTaskStore();
   const [error, setError] = useState(false);
 
   // Fetch data
@@ -41,6 +41,13 @@ const SwimlaneGrid = () => {
       })();
     }
   }, [tasks.length, setTasks]);
+
+  const by = (status: Status) =>
+    tasks.filter(
+      (t) =>
+        t.status === status &&
+        t.title.toLowerCase().includes(query.toLowerCase().trim())
+    );
 
   // Drag tasks
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -91,7 +98,7 @@ const SwimlaneGrid = () => {
           >
             <Swimlane
               title={title}
-              tasks={tasks.filter((task) => task.status === key)}
+              tasks={by(key)}
               titleBgColor={color}
               lane={key}
             />
