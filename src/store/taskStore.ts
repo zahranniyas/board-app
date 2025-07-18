@@ -11,8 +11,8 @@ export interface Task {
   priority: "high" | "medium" | "low";
   assignees: string[];
   cover?: string;
-  links: number;
-  comments: number;
+  links?: number;
+  comments?: number;
   extra?: { type: "due" | "reports" | "event"; text: string };
 }
 
