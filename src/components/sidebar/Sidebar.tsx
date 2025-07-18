@@ -1,6 +1,6 @@
 "use client";
 import { useBoardStore } from "@/store/boardStore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WorkspaceSelector from "./WorkspaceSelector";
 import NavItem from "./NavItem";
 import NavSection from "./NavSection";
@@ -8,15 +8,30 @@ import LogoutIcon from "@/assets/icons/sidebar/sign-out.svg";
 
 const Sidebar: React.FC = () => {
   const { boards, setBoards } = useBoardStore();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (boards.length === 0) {
-      fetch("/api/boards")
-        .then((r) => r.json())
-        .then(setBoards)
-        .catch(console.error);
+      (async () => {
+        try {
+          const res = await fetch("/api/boards");
+          if (!res.ok) throw new Error("Network response was not ok");
+          const data = await res.json();
+          setBoards(data);
+        } catch (err) {
+          console.error(err);
+          setError(true);
+        }
+      })();
     }
   }, [boards.length, setBoards]);
+
+  if (error)
+    return (
+      <aside className="flex h-full w-72 items-center justify-center border-r border-neutral-6 p-6">
+        <p className="text-red-600">Couldn’t load boards.</p>
+      </aside>
+    );
 
   const boardLinks = boards.map((b) => ({
     href: `/boards/${b.id}`,
@@ -42,7 +57,7 @@ const Sidebar: React.FC = () => {
         <NavItem href="/support" label="Support" icon="infoCircle" />
         <button
           type="button"
-          className="flex items-center gap-5 h-12 w-full p-3 rounded-lg hover:bg-neutral-1 transition-colors focus:outline-none text-white bg-neutral-3 cursor-pointer"
+          className="flex items-center gap-5 h-12 w-full p-3 rounded-lg active:scale-95 hover:bg-neutral-1 transition-all focus:outline-none text-white bg-neutral-3 cursor-pointer"
         >
           <LogoutIcon className="h-6 w-6 shrink-0" />
           <span className=" text-base font-medium">Logout</span>

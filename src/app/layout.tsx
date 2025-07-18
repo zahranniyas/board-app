@@ -21,9 +21,11 @@ const RootLayout = async ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
-        <div className="grid min-h-screen grid-rows-[80px_1fr] grid-cols-[288px_1fr]">
+    <html lang="en" className="h-screen overflow-hidden">
+      <body
+        className={`${poppins.variable} font-sans antialiased h-full overflow-hidden`}
+      >
+        <div className="grid h-full grid-rows-[80px_1fr] grid-cols-[288px_1fr]">
           {/* Header */}
           <div className="row-start-1 col-span-2">
             <Header />

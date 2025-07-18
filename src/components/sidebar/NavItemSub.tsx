@@ -19,7 +19,7 @@ const NavItemSub: React.FC<NavItemProps> = ({ href, label, icon }) => {
       href={href}
       aria-current={active ? "page" : undefined}
       className={`flex items-center gap-5  hover:text-primary/80 transition-colors duration-200 focus:outline-none  ${
-        active ? "text-primary" : "text-neutral-5"
+        active ? "text-primary font-medium" : "text-neutral-5 font-normal"
       }`}
     >
       <Icon className="h-6 w-6 shrink-0" />
