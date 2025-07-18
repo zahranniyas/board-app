@@ -1,12 +1,13 @@
 "use client";
+
 import BoardHeader from "@/components/boardheader/BoardHeader";
 import SwimlaneGrid from "@/components/SwimlaneGrid";
 import { useBoardStore } from "@/store/boardStore";
 import { notFound } from "next/navigation";
-import { use } from "react";
+import { useParams } from "next/navigation";
 
-const BoardPage = ({ params }: { params: Promise<{ boardId: string }> }) => {
-  const { boardId } = use(params);
+const BoardPage = () => {
+  const { boardId } = useParams<{ boardId: string }>();
 
   const board = useBoardStore((s) => s.boards.find((b) => b.id === boardId));
 
