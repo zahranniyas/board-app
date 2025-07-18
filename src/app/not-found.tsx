@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const NotFound = () => {
@@ -7,12 +8,13 @@ const NotFound = () => {
       <p className="text-neutral-4">
         The page you&apos;re looking for doesn&apos;t exist.
       </p>
-      <a
+
+      <Link
         href="/boards/sport-xi"
         className="rounded bg-primary px-4 py-2 text-white hover:bg-primary/90"
       >
         Go to default board
-      </a>
+      </Link>
     </div>
   );
 };
