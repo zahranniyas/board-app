@@ -36,7 +36,7 @@ const Header = () => {
           </button>
 
           {/* Search */}
-          <div className="bg-neutral-7 rounded-lg h-12 w-60 flex items-center gap-3 px-3">
+          <div className="bg-neutral-7 rounded-lg h-12 w-40 md:w-60 flex items-center gap-3 px-3">
             <SearchIcon className="w-4 h-4 text-neutral-4" />
             <input
               type="text"
