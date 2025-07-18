@@ -4,6 +4,8 @@ A pixel-perfect tasks management board built with Next.js 15, Tailwind CSS 4, Zu
 
 Created as a practical test for Visionex Digital
 
+Live Demo: [board-app-taupe.vercel.app](https://board-app-taupe.vercel.app/)
+
 ![Board App Screenshot](./docs/image.png)
 
 ## Features
