@@ -5,11 +5,27 @@ import SwimlaneGrid from "@/components/SwimlaneGrid";
 import { useBoardStore } from "@/store/boardStore";
 import { notFound } from "next/navigation";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 const BoardPage = () => {
   const { boardId } = useParams<{ boardId: string }>();
 
-  const board = useBoardStore((s) => s.boards.find((b) => b.id === boardId));
+  const { boards, setBoards } = useBoardStore();
+
+  useEffect(() => {
+    if (boards.length === 0) {
+      fetch("/api/boards")
+        .then((r) => r.json())
+        .then(setBoards)
+        .catch(console.error);
+    }
+  }, [boards.length, setBoards]);
+
+  if (boards.length === 0) {
+    return <div className="p-6 text-neutral-4">Loading board…</div>;
+  }
+
+  const board = boards.find((b) => b.id === boardId);
 
   if (!board) notFound();
 
